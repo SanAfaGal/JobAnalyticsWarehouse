@@ -1,0 +1,2324 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/9/2024 1:58:40 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SAG2024"
+  DTS:CreatorName="SAG2024\sanaf"
+  DTS:DTSID="{AF32760D-F1FA-434C-A745-09315A407E1E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="Full load"
+  DTS:PackageType="5"
+  DTS:VersionBuild="95"
+  DTS:VersionGUID="{2823C9AE-F967-4DC9-B6FE-79BFC4F07862}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Clean records in JobOpeningsDW"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contenedor de secuencias"
+      DTS:DTSID="{39B8456A-D9D0-4E61-AD71-7B50F8871206}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Clean records in JobOpeningsDW">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Clean records in JobOpeningsDW\Delete data from dimensions"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Tarea Ejecutar SQL"
+          DTS:DTSID="{B7F0B134-AD58-4BD2-ADF5-1CEF49E63207}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete data from dimensions"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2F7B21C1-056A-4D6A-B163-6D01FC1C73D1}"
+              SQLTask:SqlStatementSource="DELETE FROM dim_job_portals;&#xA;GO&#xA;&#xA;DELETE FROM dim_genders;&#xA;GO&#xA;&#xA;DELETE FROM dim_work_types;&#xA;GO&#xA;&#xA;DELETE FROM dim_qualifications;&#xA;GO&#xA;&#xA;DELETE FROM dim_roles;&#xA;GO&#xA;&#xA;DELETE FROM dim_job_titles;&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Full load from JobOpeningsDB to JobOpeningsDW"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Contenedor de secuencias"
+      DTS:DTSID="{06ACEF10-50C4-4DD3-A9EE-FDDE29B23AB1}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Full load from JobOpeningsDB to JobOpeningsDW">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarea Flujo de datos"
+          DTS:DTSID="{124b1ab4-0e6e-4b0f-9877-1f4085ed9d16}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load genders data"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origen de OLE DB"
+                  name="JobDescriptionsDB"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[tbl_genders]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="Variable que contiene el comando SQL para ejecutar."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Asignaciones entre los parámetros del comando SQL y las variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Connections[OleDbConnection]"
+                      connectionManagerID="{8DCF2C83-BE68-41D4-B4FD-3EDD2CA7043B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpenings2DB.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]"
+                      name="Salida de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[gender_id]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[gender_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[gender_id]"
+                          name="gender_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[gender_description]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[gender_description]"
+                          length="10"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[gender_description]"
+                          name="gender_description"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[gender_id]"
+                          dataType="i8"
+                          name="gender_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[gender_description]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="gender_description" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB]"
+                      isErrorOut="true"
+                      name="Salida de error de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[gender_id]"
+                          dataType="i8"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[gender_id]"
+                          name="gender_id" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[gender_description]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[gender_description]"
+                          name="gender_description" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino de OLE DB"
+                  name="JobDescriptionsDW"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[dim_genders]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Connections[OleDbConnection]"
+                      connectionManagerID="{2F7B21C1-056A-4D6A-B163-6D01FC1C73D1}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpeningsDW.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                      errorOrTruncationOperation="Insertar"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de destino de OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[gender_id]"
+                          cachedDataType="i8"
+                          cachedName="gender_id"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[gender_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[gender_id]" />
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[gender_description]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="gender_description"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[gender_description]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[gender_description]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[gender_id]"
+                          dataType="i8"
+                          name="gender_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[gender_description]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="gender_description" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de destino de OLE DB"
+                      synchronousInputId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data.Paths[Salida de origen de OLE DB]"
+                  endId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                  name="Salida de origen de OLE DB"
+                  startId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarea Flujo de datos"
+          DTS:DTSID="{8BD9AF90-00FD-40A3-941F-3ED45C5F3CF5}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load job_portals data"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origen de OLE DB"
+                  name="JobDescriptionsDB"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[tbl_job_portals]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="Variable que contiene el comando SQL para ejecutar."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Asignaciones entre los parámetros del comando SQL y las variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Connections[OleDbConnection]"
+                      connectionManagerID="{8DCF2C83-BE68-41D4-B4FD-3EDD2CA7043B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpenings2DB.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]"
+                      name="Salida de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_portal_id]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[job_portal_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_portal_id]"
+                          name="job_portal_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_portal_name]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[job_portal_name]"
+                          length="100"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_portal_name]"
+                          name="job_portal_name"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[job_portal_id]"
+                          dataType="i8"
+                          name="job_portal_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[job_portal_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="job_portal_name" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB]"
+                      isErrorOut="true"
+                      name="Salida de error de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[job_portal_id]"
+                          dataType="i8"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[job_portal_id]"
+                          name="job_portal_id" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[job_portal_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[job_portal_name]"
+                          name="job_portal_name" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino de OLE DB"
+                  name="JobDescriptionsDW"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[dim_job_portals]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Connections[OleDbConnection]"
+                      connectionManagerID="{2F7B21C1-056A-4D6A-B163-6D01FC1C73D1}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpeningsDW.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                      errorOrTruncationOperation="Insertar"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de destino de OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[job_portal_id]"
+                          cachedDataType="i8"
+                          cachedName="job_portal_id"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[job_portal_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_portal_id]" />
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[job_portal_name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="job_portal_name"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[job_portal_name]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_portal_name]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[job_portal_id]"
+                          dataType="i8"
+                          name="job_portal_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[job_portal_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="job_portal_name" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de destino de OLE DB"
+                      synchronousInputId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data.Paths[Salida de origen de OLE DB]"
+                  endId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                  name="Salida de origen de OLE DB"
+                  startId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarea Flujo de datos"
+          DTS:DTSID="{8a865abb-53e1-4958-aaa2-1135c2a82d16}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load job_titles data"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origen de OLE DB"
+                  name="JobDescriptionsDB"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[tbl_job_titles]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="Variable que contiene el comando SQL para ejecutar."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Asignaciones entre los parámetros del comando SQL y las variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Connections[OleDbConnection]"
+                      connectionManagerID="{8DCF2C83-BE68-41D4-B4FD-3EDD2CA7043B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpenings2DB.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]"
+                      name="Salida de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_title_id]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[job_title_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_title_id]"
+                          name="job_title_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_title_name]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[job_title_name]"
+                          length="100"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_title_name]"
+                          name="job_title_name"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[job_title_id]"
+                          dataType="i8"
+                          name="job_title_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[job_title_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="job_title_name" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB]"
+                      isErrorOut="true"
+                      name="Salida de error de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[job_title_id]"
+                          dataType="i8"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[job_title_id]"
+                          name="job_title_id" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[job_title_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[job_title_name]"
+                          name="job_title_name" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino de OLE DB"
+                  name="JobDescriptionsDW"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[dim_job_titles]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Connections[OleDbConnection]"
+                      connectionManagerID="{2F7B21C1-056A-4D6A-B163-6D01FC1C73D1}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpeningsDW.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                      errorOrTruncationOperation="Insertar"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de destino de OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[job_title_id]"
+                          cachedDataType="i8"
+                          cachedName="job_title_id"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[job_title_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_title_id]" />
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[job_title_name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="job_title_name"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[job_title_name]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[job_title_name]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[job_title_id]"
+                          dataType="i8"
+                          name="job_title_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[job_title_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="job_title_name" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de destino de OLE DB"
+                      synchronousInputId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data.Paths[Salida de origen de OLE DB]"
+                  endId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                  name="Salida de origen de OLE DB"
+                  startId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarea Flujo de datos"
+          DTS:DTSID="{73610a95-7472-45c0-bf71-bc25f4042687}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load qualifications data"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origen de OLE DB"
+                  name="JobDescriptionsDB"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[tbl_qualifications]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="Variable que contiene el comando SQL para ejecutar."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Asignaciones entre los parámetros del comando SQL y las variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Connections[OleDbConnection]"
+                      connectionManagerID="{8DCF2C83-BE68-41D4-B4FD-3EDD2CA7043B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpenings2DB.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]"
+                      name="Salida de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[qualification_id]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[qualification_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[qualification_id]"
+                          name="qualification_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[qualification_name]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[qualification_name]"
+                          length="100"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[qualification_name]"
+                          name="qualification_name"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[qualification_id]"
+                          dataType="i8"
+                          name="qualification_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[qualification_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="qualification_name" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB]"
+                      isErrorOut="true"
+                      name="Salida de error de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[qualification_id]"
+                          dataType="i8"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[qualification_id]"
+                          name="qualification_id" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[qualification_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[qualification_name]"
+                          name="qualification_name" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino de OLE DB"
+                  name="JobDescriptionsDW"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[dim_qualifications]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Connections[OleDbConnection]"
+                      connectionManagerID="{2F7B21C1-056A-4D6A-B163-6D01FC1C73D1}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpeningsDW.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                      errorOrTruncationOperation="Insertar"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de destino de OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[qualification_id]"
+                          cachedDataType="i8"
+                          cachedName="qualification_id"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[qualification_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[qualification_id]" />
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[qualification_name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="qualification_name"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[qualification_name]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[qualification_name]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[qualification_id]"
+                          dataType="i8"
+                          name="qualification_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[qualification_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="qualification_name" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de destino de OLE DB"
+                      synchronousInputId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data.Paths[Salida de origen de OLE DB]"
+                  endId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                  name="Salida de origen de OLE DB"
+                  startId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarea Flujo de datos"
+          DTS:DTSID="{81f83cb6-dc20-498d-8544-016f2cab0d3c}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load roles data"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origen de OLE DB"
+                  name="JobDescriptionsDB"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[tbl_roles]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="Variable que contiene el comando SQL para ejecutar."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Asignaciones entre los parámetros del comando SQL y las variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Connections[OleDbConnection]"
+                      connectionManagerID="{8DCF2C83-BE68-41D4-B4FD-3EDD2CA7043B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpenings2DB.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]"
+                      name="Salida de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[role_id]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[role_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[role_id]"
+                          name="role_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[role_description]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[role_description]"
+                          length="100"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[role_description]"
+                          name="role_description"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[role_id]"
+                          dataType="i8"
+                          name="role_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[role_description]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="role_description" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB]"
+                      isErrorOut="true"
+                      name="Salida de error de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[role_id]"
+                          dataType="i8"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[role_id]"
+                          name="role_id" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[role_description]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[role_description]"
+                          name="role_description" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino de OLE DB"
+                  name="JobDescriptionsDW"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[dim_roles]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Connections[OleDbConnection]"
+                      connectionManagerID="{2F7B21C1-056A-4D6A-B163-6D01FC1C73D1}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpeningsDW.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                      errorOrTruncationOperation="Insertar"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de destino de OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[role_id]"
+                          cachedDataType="i8"
+                          cachedName="role_id"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[role_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[role_id]" />
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[role_description]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="role_description"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[role_description]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[role_description]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[role_id]"
+                          dataType="i8"
+                          name="role_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[role_description]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="role_description" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de destino de OLE DB"
+                      synchronousInputId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data.Paths[Salida de origen de OLE DB]"
+                  endId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                  name="Salida de origen de OLE DB"
+                  startId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Tarea Flujo de datos"
+          DTS:DTSID="{a18cabae-50e3-4896-8aee-29551a32974b}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load work_types data"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origen de OLE DB"
+                  name="JobDescriptionsDB"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[tbl_work_types]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="Variable que contiene el comando SQL para ejecutar."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Asignaciones entre los parámetros del comando SQL y las variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Connections[OleDbConnection]"
+                      connectionManagerID="{8DCF2C83-BE68-41D4-B4FD-3EDD2CA7043B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpenings2DB.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]"
+                      name="Salida de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[work_type_id]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[work_type_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[work_type_id]"
+                          name="work_type_id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[work_type_name]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[work_type_name]"
+                          length="100"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[work_type_name]"
+                          name="work_type_name"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[work_type_id]"
+                          dataType="i8"
+                          name="work_type_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].ExternalColumns[work_type_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="work_type_name" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB]"
+                      isErrorOut="true"
+                      name="Salida de error de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[work_type_id]"
+                          dataType="i8"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[work_type_id]"
+                          name="work_type_id" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[work_type_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[work_type_name]"
+                          name="work_type_name" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino de OLE DB"
+                  name="JobDescriptionsDW"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[dim_work_types]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Connections[OleDbConnection]"
+                      connectionManagerID="{2F7B21C1-056A-4D6A-B163-6D01FC1C73D1}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[SAG2024_MSSQLSERVER2022.JobOpeningsDW.sa]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                      errorOrTruncationOperation="Insertar"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de destino de OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[work_type_id]"
+                          cachedDataType="i8"
+                          cachedName="work_type_id"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[work_type_id]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[work_type_id]" />
+                        <inputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].Columns[work_type_name]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="work_type_name"
+                          externalMetadataColumnId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[work_type_name]"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB].Columns[work_type_name]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[work_type_id]"
+                          dataType="i8"
+                          name="work_type_id" />
+                        <externalMetadataColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB].ExternalColumns[work_type_name]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="work_type_name" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de destino de OLE DB"
+                      synchronousInputId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data.Paths[Salida de origen de OLE DB]"
+                  endId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW.Inputs[Entrada de destino de OLE DB]"
+                  name="Salida de origen de OLE DB"
+                  startId="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB.Outputs[Salida de origen de OLE DB]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{F41E9D7D-8949-4353-B2BF-670CEA12C7C1}"
+      DTS:From="Package\Clean records in JobOpeningsDW"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Full load from JobOpeningsDB to JobOpeningsDW" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="192,42"
+          Id="Package\Clean records in JobOpeningsDW\Delete data from dimensions"
+          TopLeft="46.5,11.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="293,78"
+          Size="293,121"
+          Id="Package\Clean records in JobOpeningsDW"
+          TopLeft="238.87265168504,183.506565148818" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data"
+          TopLeft="43.5,11.5" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data"
+          TopLeft="39.5,59.5" />
+        <NodeLayout
+          Size="169,42"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data"
+          TopLeft="43.5,112.5" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data"
+          TopLeft="29.5,166.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data"
+          TopLeft="49.5,220.5" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data"
+          TopLeft="35.5,276.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="261,373"
+          Size="261,416"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW"
+          TopLeft="636.497474747479,53.6893939393936" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="531.87265168504,244.006565148818">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="104.624823062439,17.6828287905756"
+              Start="0,0"
+              End="97.1248230624394,17.6828287905756">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="48.3124115312197,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="48.3124115312197,0"
+                    Point2="52.3124115312197,0"
+                    Point3="52.3124115312197,4" />
+                  <mssgle:LineSegment
+                    End="52.3124115312197,13.6828287905756" />
+                  <mssgle:CubicBezierSegment
+                    Point1="52.3124115312197,13.6828287905756"
+                    Point2="52.3124115312197,17.6828287905756"
+                    Point3="56.3124115312197,17.6828287905756" />
+                  <mssgle:LineSegment
+                    End="97.1248230624394,17.6828287905756" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW"
+          TopLeft="528.333304466474,199.333331947194" />
+        <NodeLayout
+          Size="184.8,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB"
+          TopLeft="122.499993306895,79.7333327788777" />
+        <EdgeLayout
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data.Paths[Salida de origen de OLE DB]"
+          TopLeft="214.999993306895,121.733332778878">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="401.333311159579,77.5999991683163"
+              Start="0,0"
+              End="401.333311159579,70.0999991683163">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.7999995841582"
+                    Point2="0,38.7999995841582"
+                    Point3="4,38.7999995841582" />
+                  <mssgle:LineSegment
+                    End="397.333311159579,38.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="397.333311159579,38.7999995841582"
+                    Point2="401.333311159579,38.7999995841582"
+                    Point3="401.333311159579,42.7999995841582" />
+                  <mssgle:LineSegment
+                    End="401.333311159579,70.0999991683163" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load genders data\JobDescriptionsDW">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW"
+          TopLeft="528.333304466474,199.333331947194" />
+        <NodeLayout
+          Size="184.8,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB"
+          TopLeft="122.499993306895,79.7333327788777" />
+        <EdgeLayout
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data.Paths[Salida de origen de OLE DB]"
+          TopLeft="214.999993306895,121.733332778878">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="401.333311159579,77.5999991683163"
+              Start="0,0"
+              End="401.333311159579,70.0999991683163">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.7999995841582"
+                    Point2="0,38.7999995841582"
+                    Point3="4,38.7999995841582" />
+                  <mssgle:LineSegment
+                    End="397.333311159579,38.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="397.333311159579,38.7999995841582"
+                    Point2="401.333311159579,38.7999995841582"
+                    Point3="401.333311159579,42.7999995841582" />
+                  <mssgle:LineSegment
+                    End="401.333311159579,70.0999991683163" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_portals data\JobDescriptionsDW">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW"
+          TopLeft="528.333304466474,199.333331947194" />
+        <NodeLayout
+          Size="184.8,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB"
+          TopLeft="122.499993306895,79.7333327788777" />
+        <EdgeLayout
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data.Paths[Salida de origen de OLE DB]"
+          TopLeft="214.999993306895,121.733332778878">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="401.333311159579,77.5999991683163"
+              Start="0,0"
+              End="401.333311159579,70.0999991683163">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.7999995841582"
+                    Point2="0,38.7999995841582"
+                    Point3="4,38.7999995841582" />
+                  <mssgle:LineSegment
+                    End="397.333311159579,38.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="397.333311159579,38.7999995841582"
+                    Point2="401.333311159579,38.7999995841582"
+                    Point3="401.333311159579,42.7999995841582" />
+                  <mssgle:LineSegment
+                    End="401.333311159579,70.0999991683163" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load job_titles data\JobDescriptionsDW">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW"
+          TopLeft="528.333304466474,199.333331947194" />
+        <NodeLayout
+          Size="184.8,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB"
+          TopLeft="122.499993306895,79.7333327788777" />
+        <EdgeLayout
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data.Paths[Salida de origen de OLE DB]"
+          TopLeft="214.999993306895,121.733332778878">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="401.333311159579,77.5999991683163"
+              Start="0,0"
+              End="401.333311159579,70.0999991683163">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.7999995841582"
+                    Point2="0,38.7999995841582"
+                    Point3="4,38.7999995841582" />
+                  <mssgle:LineSegment
+                    End="397.333311159579,38.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="397.333311159579,38.7999995841582"
+                    Point2="401.333311159579,38.7999995841582"
+                    Point3="401.333311159579,42.7999995841582" />
+                  <mssgle:LineSegment
+                    End="401.333311159579,70.0999991683163" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load qualifications data\JobDescriptionsDW">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW"
+          TopLeft="528.333304466474,199.333331947194" />
+        <NodeLayout
+          Size="184.8,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB"
+          TopLeft="122.499993306895,79.7333327788777" />
+        <EdgeLayout
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data.Paths[Salida de origen de OLE DB]"
+          TopLeft="214.999993306895,121.733332778878">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="401.333311159579,77.5999991683163"
+              Start="0,0"
+              End="401.333311159579,70.0999991683163">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.7999995841582"
+                    Point2="0,38.7999995841582"
+                    Point3="4,38.7999995841582" />
+                  <mssgle:LineSegment
+                    End="397.333311159579,38.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="397.333311159579,38.7999995841582"
+                    Point2="401.333311159579,38.7999995841582"
+                    Point3="401.333311159579,42.7999995841582" />
+                  <mssgle:LineSegment
+                    End="401.333311159579,70.0999991683163" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load roles data\JobDescriptionsDW">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="176,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW"
+          TopLeft="528.333304466474,199.333331947194" />
+        <NodeLayout
+          Size="184.8,41.6"
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB"
+          TopLeft="122.499993306895,79.7333327788777" />
+        <EdgeLayout
+          Id="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data.Paths[Salida de origen de OLE DB]"
+          TopLeft="214.999993306895,121.733332778878">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="401.333311159579,77.5999991683163"
+              Start="0,0"
+              End="401.333311159579,70.0999991683163">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.7999995841582"
+                    Point2="0,38.7999995841582"
+                    Point3="4,38.7999995841582" />
+                  <mssgle:LineSegment
+                    End="397.333311159579,38.7999995841582" />
+                  <mssgle:CubicBezierSegment
+                    Point1="397.333311159579,38.7999995841582"
+                    Point2="401.333311159579,38.7999995841582"
+                    Point3="401.333311159579,42.7999995841582" />
+                  <mssgle:LineSegment
+                    End="401.333311159579,70.0999991683163" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Full load from JobOpeningsDB to JobOpeningsDW\Load work_types data\JobDescriptionsDW">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

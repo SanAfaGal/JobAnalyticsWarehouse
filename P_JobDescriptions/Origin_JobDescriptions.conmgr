@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="SAG2024_MSSQLSERVER2022.JobOpenings2DB.sa"
+  DTS:DTSID="{8DCF2C83-BE68-41D4-B4FD-3EDD2CA7043B}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=SAG2024\MSSQLSERVER2022;User ID=sa;Initial Catalog=JobOpenings2DB;Provider=SQLNCLI11.1;Persist Security Info=True;Application Name=SSIS-P_JobDescriptions-{8DCF2C83-BE68-41D4-B4FD-3EDD2CA7043B}SAG2024\MSSQLSERVER2022.JobOpenings2DB.sa;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAJjr5eiT9UUWOvoCJHH6pHgAAAAACAAAAAAAQZgAAAAEAACAAAACyCzlAUlTD1EYa5M1CMLpkKeI4MUmNTkKGOpYqdLMDiwAAAAAOgAAAAAIAACAAAAApNpWouC5UCaF0m+rhubNFnQJL6sEBAJRKF9tOPopq+IAAAABs9SFxA7cUyR/J9y5tmX26dYwGnxgnu/SMNBQqfEyyS9VJntS3M6GGnIxdQwVoX2dQ6Y+VEzL6dGv4Uxh+klgp0lEnaTkVFec4xRg9naPjj9tOCbhHN+I0mYGFHRzS4/o05DAFyeE0QAaKd/+emHiGkvLMPXHaCxDF64jK8/0mpUAAAADpTwXDqJHwttbnetPKxtvwOIx/a4TvdWoS/wf3/0MrdcXZ9m4uuNWU1S+1tSxvOGBMwAXbZLdK+c72h4KUIEqW</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
